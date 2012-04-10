@@ -76,7 +76,7 @@ var DateTime = (function(){
    		"${dd}": ((obj.date<10) ? ("0" + toStr(obj.date)) : toStr(obj.date)),
    		"${ddTH}": oldEnglish(obj.date),
    		"${hr}": ((obj.hour>12)?obj.hour-12:obj.hour),
-   		"${hr:mil}": obj.hour,
+   		"${hr:mil}": ((obj.hour<10) ? ("0" + toStr(obj.hour)) : toStr(obj.hour)),
    		"${min}": ((obj.minutes<10) ? ("0" + toStr(obj.minutes)) : toStr(obj.minutes)),
    		"${sec}": ((obj.seconds<10) ? ("0" + toStr(obj.seconds)) : toStr(obj.seconds)),
    		"${ampm}": obj.ampm,
