@@ -49,7 +49,7 @@ var DateTime = (function(){
 
    	// to string
    	var toStr = function(val) {
-   	   val = val || "";
+   	   val = (!isNaN(val)) ? val : "";
    	   return val.toString();
    	};
 
@@ -94,4 +94,5 @@ var DateTime = (function(){
    	return formatStr; 
    };
    
+	return DateTime;
 }());
