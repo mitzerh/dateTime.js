@@ -1,5 +1,5 @@
 /**
- * Date/Time String Constructor
+ * Date/Time String Constructor - v1.0
  * https://github.com/mitzerh/dateTime.js
  * MIT License.
  */
