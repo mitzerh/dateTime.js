@@ -1,3 +1,8 @@
+/**
+ * Date/Time String Constructor
+ * https://github.com/mitzerh/dateTime.js
+ * MIT License.
+ */
 var DateTime = (function(){
    
    var DateTime = function(date,formatStr) {
