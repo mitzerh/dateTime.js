@@ -22,9 +22,9 @@ var DateTime = (function(){
             fullStr: date.toString()
         };
 
-        // replacements
+        // replacements - original - will soon be deprecated
         var replace = {
-            "${mm}": (obj.month+1),
+            "${mm}": (obj.month < 9) ? ("0" + (obj.month + 1)) : (obj.month + 1),
             "${month}": getUTCMonthString(obj.month),
             "${month:short}": getUTCMonthString(obj.month,"short"),
             "${day}": getDayString(obj.day),
@@ -32,7 +32,7 @@ var DateTime = (function(){
             "${yr}": obj.year,
             "${yr:short}": toStr(obj.year).substr(2),
             "${dd}": (obj.date<10) ? ("0" + toStr(obj.date)) : toStr(obj.date),
-            "${ddTH}": oldEnglish(obj.date),
+            "${ddTH}": ordinalSuffix(obj.date),
             "${hr}": (obj.hour>12) ? obj.hour-12 : obj.hour,
             "${hr:mil}": (obj.hour<10) ? ("0" + toStr(obj.hour)) : toStr(obj.hour),
             "${min}": (obj.minutes<10) ? ("0" + toStr(obj.minutes)) : toStr(obj.minutes),
@@ -41,6 +41,24 @@ var DateTime = (function(){
             "${AMPM}": (obj.ampm).toUpperCase(),
             "${AmPm}": ((obj.ampm).charAt(0)).toUpperCase() + (obj.ampm).charAt(1)
         };
+
+        // new
+        replace["%m"] = replace["${mm}"];
+        replace["%M"] = replace["${month}"];
+        replace["%M:s"] = replace["${month:short}"];
+        replace["%d"] = replace["${dd}"];
+        replace["%d:o"] = replace["${ddTH}"];
+        replace["%D"] = replace["${day}"];
+        replace["%D:s"] = replace["${day:short}"];
+        replace["%Y"] = replace["${yr}"];
+        replace["%y"] = replace["${yr:short}"];
+        replace["%h"] = replace["${hr}"];
+        replace["%H"] = replace["${hr:mil}"];
+        replace["%i"] = replace["${min}"];
+        replace["%s"] = replace["${sec}"];
+        replace["%ampm"] = replace["${ampm}"];
+        replace["%AMPM"] = replace["${AMPM}"];
+        replace["%AmPm"] = replace["${AmPm}"];
 
         if (typeof formatStr !== "string" || !formatStr) {
 
@@ -62,8 +80,7 @@ var DateTime = (function(){
 
     };
 
-    // old english(?) format
-    var oldEnglish = function(n) {
+    var ordinalSuffix = function(n) {
         n = (n || "").toString();
         if (n.length < 1) { return n; }
 
