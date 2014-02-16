@@ -1,14 +1,16 @@
 # DateTime Script
 
-> Generate a string format base on the passed `date` object
+> Convert javascript `date` object to string based on a custom format
 
 > `js/` folder also contains files for use in `node` and `amd`
+
+---
 
 ## Format options
 
 **Month**
 
-`%m` - Month in number (1 - 12)
+`%m` - Month in number (01 - 12)
 
 `%M` - Month (January - December)
 

@@ -24,43 +24,31 @@ var DateTime = (function(){
             fullStr: date.toString()
         };
 
-        // replacements - original - will soon be deprecated
-        var replace = {
-            "${mm}": (obj.month < 9) ? ("0" + (obj.month + 1)) : (obj.month + 1),
-            "${month}": getUTCMonthString(obj.month),
-            "${month:short}": getUTCMonthString(obj.month,"short"),
-            "${day}": getDayString(obj.day),
-            "${day:short}": getDayString(obj.day,"short"),
-            "${yr}": obj.year,
-            "${yr:short}": toStr(obj.year).substr(2),
-            "${dd}": (obj.date<10) ? ("0" + toStr(obj.date)) : toStr(obj.date),
-            "${ddTH}": ordinalSuffix(obj.date),
-            "${hr}": (obj.hour>12) ? obj.hour-12 : obj.hour,
-            "${hr:mil}": (obj.hour<10) ? ("0" + toStr(obj.hour)) : toStr(obj.hour),
-            "${min}": (obj.minutes<10) ? ("0" + toStr(obj.minutes)) : toStr(obj.minutes),
-            "${sec}": (obj.seconds<10) ? ("0" + toStr(obj.seconds)) : toStr(obj.seconds),
-            "${ampm}": obj.ampm,
-            "${AMPM}": (obj.ampm).toUpperCase(),
-            "${AmPm}": ((obj.ampm).charAt(0)).toUpperCase() + (obj.ampm).charAt(1)
-        };
+        var replace = [
+            
+            ["%m", (obj.month < 9) ? ("0" + (obj.month + 1)) : (obj.month + 1)],
+            ["%M:s", getUTCMonthString(obj.month,"short")],
+            ["%M", getUTCMonthString(obj.month)],
 
-        // new
-        replace["%m"] = replace["${mm}"];
-        replace["%M"] = replace["${month}"];
-        replace["%M:s"] = replace["${month:short}"];
-        replace["%d"] = replace["${dd}"];
-        replace["%d:o"] = replace["${ddTH}"];
-        replace["%D"] = replace["${day}"];
-        replace["%D:s"] = replace["${day:short}"];
-        replace["%Y"] = replace["${yr}"];
-        replace["%y"] = replace["${yr:short}"];
-        replace["%h"] = replace["${hr}"];
-        replace["%H"] = replace["${hr:mil}"];
-        replace["%i"] = replace["${min}"];
-        replace["%s"] = replace["${sec}"];
-        replace["%ampm"] = replace["${ampm}"];
-        replace["%AMPM"] = replace["${AMPM}"];
-        replace["%AmPm"] = replace["${AmPm}"];
+            ["%d:o", ordinalSuffix(obj.date)],
+            ["%d", (obj.date<10) ? ("0" + toStr(obj.date)) : toStr(obj.date)],
+            ["%D:s", getDayString(obj.day,"short")],
+            ["%D", getDayString(obj.day)],
+
+            ["%Y:r", romanNumerals(obj.year)],
+            ["%Y", obj.year],
+            ["%y", toStr(obj.year).substr(2)],
+
+            ["%h", (obj.hour>12) ? obj.hour-12 : obj.hour],
+            ["%H", (obj.hour<10) ? ("0" + toStr(obj.hour)) : obj.hour],
+            ["%i", (obj.minutes<10) ? ("0" + toStr(obj.minutes)) : toStr(obj.minutes)],
+            ["%s", (obj.seconds<10) ? ("0" + toStr(obj.seconds)) : toStr(obj.seconds)],
+
+            ["%ampm", obj.ampm],
+            ["%AMPM", (obj.ampm).toUpperCase()],
+            ["%AmPm", ((obj.ampm).charAt(0)).toUpperCase() + (obj.ampm).charAt(1)]
+
+        ];
 
         if (typeof formatStr !== "string" || !formatStr) {
 
@@ -68,12 +56,13 @@ var DateTime = (function(){
 
         } else {
 
-            for (var i in replace) {
-                var idx = formatStr.indexOf(i);
-                while (idx!==-1) {
-                    formatStr = formatStr.replace(i,replace[i]);
-                    idx = formatStr.indexOf(i);
-                }
+            for (var i = 0; i < replace.length; i++) {
+                var item = replace[i],
+                    fmt = item[0],
+                    val = item[1],
+                    re = new RegExp(fmt, 'g');
+
+                formatStr = formatStr.replace(re, val);
             }
 
         }
@@ -87,16 +76,60 @@ var DateTime = (function(){
         if (n.length < 1) { return n; }
 
         var s = "",
-            lastDigit = parseInt(n.charAt(n.length-1), 10);
+            num = parseInt(n, 10),
+            tens = (num > 99) ? parseInt(n.slice(n.length-2), 10) : (num < 20) ? num : false;
+        
+        if (tens >= 11 && tens < 20) {
+            s = "th";
+        } else {
+            var lastDigit = parseInt(n.charAt(n.length-1), 10);
+            
+            switch (lastDigit) {
+                case 1: s = "st";break;
+                case 2: s = "nd";break;
+                case 3: s = "rd";break;
+                default: s = "th";break;
+            }
+            
+        }
+        
+        return (n + s);
+    };
 
-        switch (lastDigit) {
-            case 1: s = "st";break;
-            case 2: s = "nd";break;
-            case 3: s = "rd";break;
-            default: s = "th";break;
+    var romanNumerals = function(n) {
+
+        n = parseInt(n, 10);
+
+        var numerals = [
+            ["M", 1000],
+            ["CM", 900],
+            ["D", 500],
+            ["CD", 400],
+            ["C", 100],
+            ["XC", 90],
+            ["L", 50],
+            ["XL", 40],
+            ["X", 10],
+            ["IX", 9],
+            ["V", 5],
+            ["IV", 4],
+            ["I", 1]
+        ];
+        
+        var i, arr = [];
+        for (i = 0; i < numerals.length; i++) {
+            var item = numerals[i],
+                rn = item[0],
+                val = item[1];
+
+            while (n >= val) {
+                arr.push(rn);
+                n = n - val;
+            }
+
         }
 
-        return (n + s);
+        return arr.join("");
     };
 
     // Return week days string
