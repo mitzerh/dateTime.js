@@ -39,10 +39,10 @@ jQuery.DateTime =  (function(window, $){
             ["%Y", obj.year],
             ["%y", toStr(obj.year).substr(2)],
 
-            ["%h", (obj.hour>12) ? obj.hour-12 : obj.hour],
-            ["%H", (obj.hour<10) ? ("0" + toStr(obj.hour)) : obj.hour],
-            ["%i", (obj.minutes<10) ? ("0" + toStr(obj.minutes)) : toStr(obj.minutes)],
-            ["%s", (obj.seconds<10) ? ("0" + toStr(obj.seconds)) : toStr(obj.seconds)],
+            ["%h", prefixZero((obj.hour>12) ? obj.hour-12 : obj.hour)],
+            ["%H", prefixZero(obj.hour)],
+            ["%i", prefixZero(obj.minutes)],
+            ["%s", prefixZero(obj.seconds)],
 
             ["%ampm", obj.ampm],
             ["%AMPM", (obj.ampm).toUpperCase()],
@@ -154,6 +154,11 @@ jQuery.DateTime =  (function(window, $){
         }
 
         return ret;
+    };
+
+    // prefix 0
+    var prefixZero = function(val) {
+        return (val < 10) ? ("0" + toStr(val)) : val;
     };
 
     // to string

@@ -1,6 +1,6 @@
 {
   "name": "DateTime",
-  "version": "3.0.0",
+  "version": "3.0.1",
   
   "description": "Convert javascript date object to string based on a custom format",
   "author": "Helcon Mabesa",
