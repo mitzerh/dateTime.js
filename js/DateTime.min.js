@@ -1,5 +1,5 @@
 /**
-* DateTime v3.0.0 | 2014-10-11
+* DateTime v3.0.1 | 2014-10-11
 * Convert javascript date object to string based on a custom format
 * by Helcon Mabesa
 * MIT license http://opensource.org/licenses/MIT
