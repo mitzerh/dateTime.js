@@ -1,8 +1,14 @@
-# DateTime Script
+DateTime Script
+=======================
 
-> Convert javascript `date` object to string based on a custom format
+Convert javascript `date` object to string based on a custom format
 
-> `js/` folder also contains files for use in `node` and `amd`
+jQuery plugin alternative available.
+
+Example:
+
+[http://jsfiddle.net/mitzerh/oexeL8ca/](http://jsfiddle.net/mitzerh/oexeL8ca/)
+
 
 ---
 
