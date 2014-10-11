@@ -1,5 +1,16 @@
 module.exports = function(grunt) {
 
+    var conf = grunt.file.readJSON('package.json');
+
+    // comment banner
+    var comment = [
+        '/**',
+        conf.name + ' v' + conf.version + ' | ' + grunt.template.today("yyyy-mm-dd"),
+        conf.description,
+        'by ' + conf.author,
+        conf.license,
+    ].join('\n* ') + '\n**/';
+
     var config = {
 
         pkg: grunt.file.readJSON('package.json'),
@@ -11,22 +22,29 @@ module.exports = function(grunt) {
         copy: {
 
             orig: {
+                options: {
+                    process: function(content) {
+                        content = [comment, content].join('\n\n');
+                        return content;
+                    }
+                },
                 src: 'src/DateTime.js',
                 dest: 'js/DateTime.js'
             },
 
-            amd: {
+            jquery: {
                 options: {
+                    banner: comment + '\n',
                     process: function(content, path) {
-                        var banner = 'define("DateTime", [], function() {\n\n',
-                            footer = '\n\nreturn DateTime;\n\n});';
 
-                        var ret = banner + content + footer;
-                        return ret;
+                        // replace declaration
+                        content = content.replace('var DateTime =', 'jQuery.DateTime = ');
+                        content = [comment, content].join('\n\n');
+                        return content;
                     }
                 },
                 src: 'src/DateTime.js',
-                dest: 'js/DateTime.amd.js'
+                dest: 'js/jquery.fn.DateTime.js'
             }
 
         },
@@ -48,17 +66,30 @@ module.exports = function(grunt) {
             original: {
 
                 options: {
-                    mangle: true
+                    mangle: true,
+                    banner: comment + '\n'
                 },
-                expand: true,
                 files: {
-                    'js/DateTime.min.js': 'src/DateTime.js'
+                    'js/DateTime.min.js' : 'js/DateTime.js',
+                    'js/jquery.fn.DateTime.min.js' : 'js/jquery.fn.DateTime.js'
                 }
 
             }
 
         }
 
+    };
+
+    var removeBlock = function(regex, content) {
+
+        // var regex = /(block\:jquery+\s)(.*)\/\1/i;
+        var matches = content.match(regex);
+
+        if (matches && matches[0]) {
+            content = content.replace(matches[0], '');
+        }
+
+        return content;
     };
 
     // load npm's

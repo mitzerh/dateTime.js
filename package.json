@@ -1,7 +1,17 @@
 {
-  "name": "date-time-script",
-  "version": "2.1.0",
-  "description": "DateTime script",
+  "name": "DateTime",
+  "version": "3.0.0",
+  
+  "description": "Convert javascript date object to string based on a custom format",
+  "author": "Helcon Mabesa",
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mitzerh/dateTime.js"
+  },
+
+  "license": "MIT license http://opensource.org/licenses/MIT",
+
   "private": true,
   "devDependencies": {
     "grunt": "~0.4.2",

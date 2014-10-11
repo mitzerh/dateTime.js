@@ -1,11 +1,11 @@
-define("DateTime", [], function() {
-
 /**
- * DateTime script
- * https://github.com/mitzerh/dateTime.js
- * Convert date objects to a string format you need!
- */
-var DateTime = (function(){
+* DateTime v3.0.0 | 2014-10-11
+* Convert javascript date object to string based on a custom format
+* by Helcon Mabesa
+* MIT license http://opensource.org/licenses/MIT
+**/
+
+jQuery.DateTime =  (function(window, $){
 
     var App = function(date, formatStr) {
 
@@ -164,8 +164,4 @@ var DateTime = (function(){
 
     return App;
 
-}());
-
-return DateTime;
-
-});
+}(window));

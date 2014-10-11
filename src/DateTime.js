@@ -1,9 +1,4 @@
-/**
- * DateTime script
- * https://github.com/mitzerh/dateTime.js
- * Convert date objects to a string format you need!
- */
-var DateTime = (function(){
+var DateTime = (function(window, $){
 
     var App = function(date, formatStr) {
 
@@ -162,4 +157,4 @@ var DateTime = (function(){
 
     return App;
 
-}());
+}(window));
