@@ -15,20 +15,6 @@ module.exports = function(grunt) {
                 dest: 'js/DateTime.js'
             },
 
-            node: {
-                options: {
-                    process: function(content, path) {
-                        var banner = 'module.exports = function() {\n\n',
-                            footer = '\n\nreturn DateTime;\n\n};';
-
-                        var ret = banner + content + footer;
-                        return ret;
-                    }
-                },
-                src: 'src/DateTime.js',
-                dest: 'js/DateTime.node.js'
-            },
-
             amd: {
                 options: {
                     process: function(content, path) {
