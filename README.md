@@ -9,6 +9,9 @@ Example:
 
 [http://jsfiddle.net/mitzerh/oexeL8ca/](http://jsfiddle.net/mitzerh/oexeL8ca/)
 
+##Bower Install
+
+`bower install datetime-js`
 
 ---
 
