@@ -1,5 +1,5 @@
 {
-  "name": "datetime-js",
+  "name": "DateTime",
   "version": "3.0.1",
   
   "description": "Convert javascript date object to string based on a custom format",
