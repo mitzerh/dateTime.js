@@ -1,2 +1,12 @@
-node_modules/*
+# osx
+.DS_Store
+
+# npm
+.nodemonignore
+npm-debug.log
+node_modules/
+
+# bower
+.bower-*/
+bower_components/
 
