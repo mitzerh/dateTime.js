@@ -4,6 +4,6 @@
 	"main": "js/DateTime.js",
 	"ignore": [
 		"**/*",
-		"!js/DateTime.js"
+		"!lib/datetime.js"
 	]
 }
