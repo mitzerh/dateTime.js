@@ -2,7 +2,7 @@
   "name": "datetime-js",
   "description": "Convert javascript date object to string based on a custom format",
   "author": "Helcon Mabesa",
-  "version": "3.0.1",
+  "version": "3.0.2",
 
   "main": "./js/DateTime.js",
   "repository": "https://github.com/mitzerh/dateTime.js.git",
