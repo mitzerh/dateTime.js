@@ -1,10 +1,9 @@
 /**
-* datetime-js | https://github.com/mitzerh/dateTime.js
-* Convert javascript date object to string based on a custom format
-* by Helcon Mabesa
-* MIT license http://opensource.org/licenses/MIT
+* datetime-js v3.1.1
+* A lightweight javascript date object to custom string presentation converter.
+* (c) 2019 Helcon Mabesa
+* ISC
 **/
-
 var DateTime = (function(){
 
     var App = function(date, formatStr) {
@@ -25,7 +24,7 @@ var DateTime = (function(){
         };
 
         var replace = [
-            
+
             ["%m", (obj.month < 9) ? ("0" + (obj.month + 1)) : (obj.month + 1)],
             ["%M:s", getUTCMonthString(obj.month,"short")],
             ["%M", getUTCMonthString(obj.month)],
@@ -78,21 +77,21 @@ var DateTime = (function(){
         var s = "",
             num = parseInt(n, 10),
             tens = (num > 99) ? parseInt(n.slice(n.length-2), 10) : (num < 20) ? num : false;
-        
+
         if (tens >= 11 && tens < 20) {
             s = "th";
         } else {
             var lastDigit = parseInt(n.charAt(n.length-1), 10);
-            
+
             switch (lastDigit) {
                 case 1: s = "st";break;
                 case 2: s = "nd";break;
                 case 3: s = "rd";break;
                 default: s = "th";break;
             }
-            
+
         }
-        
+
         return (n + s);
     };
 
@@ -115,7 +114,7 @@ var DateTime = (function(){
             ["IV", 4],
             ["I", 1]
         ];
-        
+
         var i, arr = [];
         for (i = 0; i < numerals.length; i++) {
             var item = numerals[i],

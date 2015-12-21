@@ -1,9 +1,0 @@
-{
-	"name": "DateTime",
-	"version": "3.0.1",
-	"main": "js/DateTime.js",
-	"ignore": [
-		"**/*",
-		"!lib/datetime.js"
-	]
-}
