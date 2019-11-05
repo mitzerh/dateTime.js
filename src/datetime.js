@@ -32,7 +32,14 @@ var DateTime = (function(){
             ["%Y", obj.year],
             ["%y", toStr(obj.year).substr(2)],
 
-            ["%h", prefixZero((obj.hour>12) ? obj.hour-12 : obj.hour)],
+            ["%h", prefixZero(
+                (function(){
+                    var val = (obj.hour>12) ? (obj.hour-12) : obj.hour;
+                    val = (val === 0) ? 12 : val;
+                    return val;
+                }())
+            )],
+
             ["%H", prefixZero(obj.hour)],
             ["%i", prefixZero(obj.minutes)],
             ["%s", prefixZero(obj.seconds)],
